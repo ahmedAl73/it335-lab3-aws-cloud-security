@@ -1,0 +1,13 @@
+# AWS Cloud Security Fundamentals Lab Reflection
+
+In this lab, I implemented several foundational AWS security controls across Identity and Access Management (IAM), S3 storage, EC2 compute, and monitoring services.
+
+For IAM, I avoided using the root account and instead created a restricted IAM user and group with limited permissions. This demonstrates the principle of least privilege, ensuring users only have access to what is necessary. In the Capital One breach, overly permissive IAM roles allowed attackers to access sensitive S3 data once credentials were compromised. By limiting permissions, my configuration reduces the potential damage if credentials are exposed.
+
+For S3, I created a bucket with Block all public access enabled. This prevents accidental exposure of sensitive data. In the Capital One incident, misconfigured S3 access contributed to the data breach. Enforcing this setting ensures that even if a policy mistake occurs, the data cannot be publicly accessed.
+
+For EC2, I launched a Free Tier instance and configured a security group to allow SSH access only from my specific IP address. This reduces the attack surface by limiting who can connect to the instance. I also reviewed the importance of Instance Metadata Service version 2 (IMDSv2), which protects against SSRF attacks. In the Capital One breach, an SSRF vulnerability allowed attackers to retrieve IAM credentials from the instance metadata service. Using IMDSv2 and strict network rules helps prevent this type of attack.
+
+For monitoring and governance, I reviewed AWS CloudTrail, AWS Config, and the Billing dashboard. CloudTrail logs all API activity, Config tracks resource configuration changes, and Billing helps detect unusual cost spikes. Continuous monitoring is critical because relying only on periodic audits creates a window of opportunity for attackers. In the Capital One case, earlier detection through monitoring could have significantly reduced the impact of the breach.
+
+Overall, S3 and IAM configurations were straightforward to implement, while security groups required more careful attention and are more prone to misconfiguration. This lab highlights that while AWS provides powerful security tools, human error and poor governance can still lead to serious vulnerabilities. Strong organizational practices and continuous monitoring are essential to maintaining a secure cloud environment.
